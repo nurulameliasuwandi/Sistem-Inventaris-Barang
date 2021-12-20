@@ -4,8 +4,10 @@
             <div class="card">
                 <h5 class="card-header">Detail Jenis</h5>
                 <div class="card-body">
-                    <h5 class="card-title"><?= $jenis['nama_jenis']; ?></h5>
-                    <p class="card-text"><?= $jenis['id_jenis']; ?></p>
+                    <label for="id_jenis" class="form-label">Kode Jenis   : </label>
+                    <h7 class="card-title"><?= $jenis['id_jenis']; ?></h7> <br>
+                    <label for="nama_jenis" class="form-label">Nama Jenis   : </label>
+                    <h7 class="card-title"><?= $jenis['nama_jenis']; ?></h7> <br>
                     <a href="http://localhost/inventaris/Jenis" class="btn btn-primary">Kembali</a>
                 </div>
             </div>

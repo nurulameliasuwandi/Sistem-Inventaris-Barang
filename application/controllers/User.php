@@ -53,74 +53,71 @@ class User extends CI_Controller
         //initialiaze
         $this->pagination->initialize($config);
         $data['start']=$this->uri->segment(3);
-        $data['user'] = $this->Barang_model->getBarang($config['per_page'], $data['start']);
+        $data['user'] = $this->User_model->getUser($config['per_page'], $data['start']);
         if ($this->input->post('keyword')) {
-            $data['barang'] = $this->Barang_model->CariDataBarang();
+            $data['user'] = $this->User_model->CariDataUser();
         }
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
-        $this->load->view('barang/index');
+        $this->load->view('user/index');
         $this->load->view('templates/footer');
     }
 
     public function tambah()
     {
-        $data['judul'] = "Tambah Data Barang";
+        $data['judul'] = "Tambah Data User";
 
-        $this->form_validation->set_rules('id_barang', 'Kode Barang', 'required');
-        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
-        $this->form_validation->set_rules('id_jenis', 'ID Jenis', 'required|numeric');
-        $this->form_validation->set_rules('id_satuan', 'ID Satuan', 'required|numeric');
-        $this->form_validation->set_rules('stok', 'Stok', 'required|numeric');
+        $this->form_validation->set_rules('nama', 'Nama User', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('no_telp', 'No Telepon', 'required');
+        $this->form_validation->set_rules('role', 'Role', 'required');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar');
             $this->load->view('templates/topbar');
-            $this->load->view('barang/tambah');
+            $this->load->view('user/tambah');
             $this->load->view('templates/footer');
         } else {
-            $this->Barang_model->tambahDataBarang();
+            $this->User_model->tambahDataUser();
             $this->session->set_flashdata('flash', 'Berhasil ditambahkan');
-            redirect('http://localhost/inventaris/Barang');
+            redirect('http://localhost/inventaris/User');
         }
     }
 
     public function hapus($id)
     {
-        $this->Barang_model->hapusDataBarang($id);
+        $this->User_model->hapusDataUser($id);
         $this->session->set_flashdata('flash', 'Dihapus');
-        redirect('http://localhost/inventaris/Barang');
+        redirect('http://localhost/inventaris/User');
     }
     public function detail($id)
     {
-        $data['judul'] = "Detail Barang";
-        $data['barang'] = $this->Barang_model->getBarangById($id);
+        $data['judul'] = "Detail User";
+        $data['user'] = $this->User_model->getUserById($id);
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
-        $this->load->view('barang/detail', $data);
+        $this->load->view('user/detail', $data);
         $this->load->view('templates/footer');
     }
     public function ubah($id)
     {
-        $data['judul'] = "Ubah Data Barang";
-        $data['barang'] = $this->Barang_model->getBarangById($id);
-        $this->form_validation->set_rules('id_barang', 'Kode Barang', 'required');
-        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
-        $this->form_validation->set_rules('id_jenis', 'Jenis', 'required|numeric');
-        $this->form_validation->set_rules('id_satuan', 'Satuan', 'required|numeric');
-        $this->form_validation->set_rules('stok', 'Stok', 'required|numeric');
+        $data['judul'] = "Ubah Data User";
+        $data['user'] = $this->User_model->getUserById($id);
+        $this->form_validation->set_rules('nama', 'Nama User', 'required');
+        $this->form_validation->set_rules('email', 'Email User', 'required');
+        $this->form_validation->set_rules('no_telp', 'No Telepon', 'required|numeric');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar');
             $this->load->view('templates/topbar');
-            $this->load->view('barang/ubah', $data);
+            $this->load->view('user/ubah', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->Barang_model->ubahDataBarang();
+            $this->User_model->ubahDataUser();
             $this->session->set_flashdata('flash', 'Diubah');
-            redirect('http://localhost/inventaris/Barang');
+            redirect('http://localhost/inventaris/User');
         }
     }
 }
